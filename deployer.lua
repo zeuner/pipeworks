@@ -112,14 +112,19 @@ deployer_on = function(pos, node)
 	hacky_swap_node(pos,"pipeworks:deployer_on")
 	nodeupdate(pos)
 	
-	local inv = minetest.get_meta(pos):get_inventory()
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
 	local invlist = inv:get_list("main")
 	for i, stack in ipairs(invlist) do
 		if stack:get_name() ~= nil and stack:get_name() ~= "" and minetest.get_node(pos_under).name == "air" then --obtain the first non-empty item slot
+			local owner = meta:get_string("owner")
 			local placer = {
-				get_player_name = function() return "deployer" end,
+				get_player_name = function() return owner end,
 				getpos = function() return pos end,
 				get_player_control = function() return {jump=false,right=false,left=false,LMB=false,RMB=false,sneak=false,aux1=false,down=false,up=false} end,
+				is_player = function() return true end,
+				get_player_control_bits = function() return 0 end,
+				get_look_dir = function() return {x = -dir.x, y = -dir.y, z = -dir.z} end,
 			}
 			local stack2 = minetest.item_place(stack, placer, {type="node", under=pos_under, above=pos_above})
 			if minetest.setting_getbool("creative_mode") and not minetest.get_modpath("unified_inventory") then --infinite stacks ahoy!
@@ -181,7 +186,11 @@ minetest.register_node("pipeworks:deployer_off", {
 		local placer_pos = placer:getpos()
 		
 		--correct for the player's height
-		if placer:is_player() then placer_pos.y = placer_pos.y + 1.5 end
+		if placer:is_player() then
+			local meta = minetest.get_meta(pos)
+			meta:set_string("owner", placer:get_player_name())
+			placer_pos.y = placer_pos.y + 1.5
+		end
 		
 		--correct for 6d facedir
 		if placer_pos then
