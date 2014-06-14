@@ -116,6 +116,7 @@ dofile(pipeworks.modpath.."/tubes.lua")
 
 if pipeworks.enable_pipes then dofile(pipeworks.modpath.."/pipes.lua") end
 if pipeworks.enable_teleport_tube then dofile(pipeworks.modpath.."/teleport_tube.lua") end
+if pipeworks.enable_extratubes then dofile(pipeworks.modpath.."/extratubes.lua") end
 if pipeworks.enable_pipe_devices then dofile(pipeworks.modpath.."/devices.lua") end
 if pipeworks.enable_redefines then dofile(pipeworks.modpath.."/compat.lua") end
 if pipeworks.enable_autocrafter then dofile(pipeworks.modpath.."/autocrafter.lua") end
