@@ -403,7 +403,10 @@ minetest.register_node("pipeworks:flow_sensor_empty", {
 	description = "Flow Sensor",
 	drawtype = "mesh",
 	mesh = "pipeworks_flow_sensor.obj",
-	tiles = { "pipeworks_flow_sensor_off.png" },
+	tiles = {
+		"pipeworks_flow_sensor_off.png",
+		"pipeworks_pressure_gauge_0.png"
+	},
 	sunlight_propagates = true,
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -441,7 +444,10 @@ minetest.register_node("pipeworks:flow_sensor_loaded", {
 	description = "Flow sensor (on)",
 	drawtype = "mesh",
 	mesh = "pipeworks_flow_sensor.obj",
-	tiles = { "pipeworks_flow_sensor_on.png" },
+	tiles = {
+		"pipeworks_flow_sensor_on.png",
+		"pipeworks_pressure_gauge_3.png"
+	},
 	sunlight_propagates = true,
 	paramtype = "light",
 	paramtype2 = "facedir",
