@@ -188,7 +188,7 @@ function pipeworks.create_fake_player(def, is_dynamic)
 		_hp = def.hp or 20,
 		_breath = 11,
 		_pos = def.position and table.copy(def.position) or vector.new(),
-		_properties = def.properties or {},
+		_properties = def.properties or { eye_height = def.eye_height or 1.47 },
 		_inventory = def.inventory,
 		_wield_index = def.wield_index or 1,
 		_wielded_item = wielded_item,
@@ -200,7 +200,7 @@ function pipeworks.create_fake_player(def, is_dynamic)
 			self._eye_offset1 = table.copy(first)
 			self._eye_offset3 = table.copy(third)
 		end,
-		get_eye_offset = function(self, first, third)
+		get_eye_offset = function(self)
 			return self._eye_offset1, self._eye_offset3
 		end,
 		get_look_dir = delay(def.look_dir or {x=0, y=0, z=1}),
@@ -252,7 +252,7 @@ function pipeworks.create_fake_player(def, is_dynamic)
 	p.get_pos, p.set_pos = get_set_wrap("pos", is_dynamic)
 	_trash, p.move_to = get_set_wrap("pos", is_dynamic)
 	p.get_wield_index, p.set_wield_index = get_set_wrap("wield_index", true)
-	p.get_properties, p.set_properties = get_set_wrap("properties", is_dynamic)
+	p.get_properties, p.set_properties = get_set_wrap("properties", false)
 
 	-- Backwards compatibilty
 	p.getpos = p.get_pos
